@@ -23,7 +23,9 @@ public class Farm : MonoBehaviour {
     public float Work() {
         float yield = 0;
 
-        yield = Random.Range(1, workers.Count);
+        for (int i = 0; i < workers.Count; i++) {
+            yield += workers[i].getFarmSkill();
+        }
 
         return yield;
     }
@@ -32,5 +34,19 @@ public class Farm : MonoBehaviour {
     public void Upgrade() {
         rank++;
         maxWorkers += workerCapIncreasePerRank;
+    }
+
+    public bool HireWorker(Person p) {
+        bool success = false;
+        if (workers.Count < maxWorkers) {
+            workers.Add(p);
+            success = true;
+        }
+        return success;
+    }
+
+    public void RemoveWorker(Person p) {
+        p.job = 0;
+        workers.Remove(p);
     }
 }

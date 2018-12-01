@@ -33,4 +33,18 @@ public class House : MonoBehaviour {
         maxPeople += personCapIncreasePerRank;
         rank++;
     }
+
+    public bool AddToHouse(Person p) {
+        bool success = false;
+        if (residents.Count < maxPeople) {
+            residents.Add(p);
+            success = true;
+        }
+        return success;
+    }
+
+    public void RemovePerson(Person p) {
+        p.homeless = true;
+        residents.Remove(p);
+    }
 }
