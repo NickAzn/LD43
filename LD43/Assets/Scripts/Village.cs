@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Village : MonoBehaviour {
 
+    // Game stats given in editor
     public float startFood;
     public float peopleFoodCost;
     public float dayLength;
@@ -11,10 +12,13 @@ public class Village : MonoBehaviour {
 
     List<Person> peopleList = new List<Person>();
     float food;
+
+    // Declared in editor
     public House house;
     public Farm farm;
     public Construction constuction;
-    Tavern tavern;
+    public Tavern tavern;
+
     List<Item> itemList = new List<Item>();
 
     int sacBalance;
@@ -41,6 +45,7 @@ public class Village : MonoBehaviour {
             curDayTime = 0;
             curDay++;
             food -= peopleList.Count * peopleFoodCost;
+            food += farm.Work();
             sacBalance = sacPerDay * curDay;
         } else {
             EndGame();
