@@ -23,7 +23,9 @@ public class Farm : MonoBehaviour {
     public float Work() {
         float yield = 0;
 
-        yield = Random.Range(1, workers.Count);
+        for (int i = 0; i < workers.Count; i++) {
+            yield += workers[i].getFarmSkill();
+        }
 
         return yield;
     }
