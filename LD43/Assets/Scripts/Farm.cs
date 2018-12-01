@@ -12,10 +12,11 @@ public class Farm : MonoBehaviour {
     int maxWorkers;
     int rank;
 
-    public Sprite[] armSprites;
+    public Sprite[] farmSprites;
 
     private void Start() {
         maxWorkers = startWorkerCap;
+        rank = 1;
     }
     
     // returns food yield based on number of workers
