@@ -138,10 +138,15 @@ public class Village : MonoBehaviour {
     }
 
     public void SelectPerson(Person p) {
+        if (selectedPerson != null) {
+            DeselectPerson();
+        }
         selectedPerson = p;
+        p.GetComponent<SpriteRenderer>().color = Color.gray;
     }
 
     public void DeselectPerson() {
+        selectedPerson.GetComponent<SpriteRenderer>().color = Color.white;
         selectedPerson = null;
     }
 

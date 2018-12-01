@@ -52,6 +52,19 @@ public class Person : MonoBehaviour {
     }
 
     private void OnMouseDown() {
+        transform.localScale = new Vector2(1.1f, 1.1f);
+    }
+
+    private void OnMouseEnter() {
+        transform.localScale = new Vector2(1.05f, 1.05f);
+    }
+
+    private void OnMouseExit() {
+        transform.localScale = new Vector2(1f, 1f);
+    }
+
+    private void OnMouseUpAsButton() {
+        transform.localScale = new Vector2(1.05f, 1.05f);
         Village v = Village.instance;
         if (v.GetSelectedPerson() == this)
             v.DeselectPerson();

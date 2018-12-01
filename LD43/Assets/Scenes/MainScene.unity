@@ -610,7 +610,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startWorkerCap: 1
   workerCapIncreasePerRank: 1
-  tarvernSprites: []
+  tarvernSprites:
+  - {fileID: 21300000, guid: 4155e8b03bfe5c348b8d8f33a441ab41, type: 3}
+  - {fileID: 21300000, guid: 57b02ec9b15656449972e70d7ec84427, type: 3}
+  - {fileID: 21300000, guid: ec33ad31cdb86d94caa6cde7c944f4ed, type: 3}
 --- !u!212 &899833570
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -686,14 +689,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 6.0234375, y: 4}
+    oldSize: {x: 3.3046875, y: 2.640625}
     newSize: {x: 7.71, y: 5.12}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 6.0234375, y: 4}
+  m_Size: {x: 3.3, y: 2.65}
   m_EdgeRadius: 0
 --- !u!1 &955060973
 GameObject:
