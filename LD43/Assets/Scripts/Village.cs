@@ -4,13 +4,57 @@ using UnityEngine;
 
 public class Village : MonoBehaviour {
 
+    public float startFood;
+    public float peopleFoodCost;
+    public float dayLength;
+    public int sacPerDay;
+
+    List<Person> peopleList = new List<Person>();
+    float food;
+    public House house;
+    public Farm farm;
+    public Construction constuction;
+    Tavern tavern;
+    List<Item> itemList = new List<Item>();
+
+    int sacBalance;
+    int curDay = 1;
+    float curDayTime = 0f;
+
+
 	// Use this for initialization
-	void Start () {
-		
+	void Awake () {
+        food = startFood;
+        sacBalance = 1;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+        curDayTime += Time.deltaTime;
+        if (curDayTime >= dayLength)
+            EndDay();
 	}
+
+    //Ends the day and starts new day
+    void EndDay() {
+        if (sacBalance <= 0) {
+            curDayTime = 0;
+            curDay++;
+            food -= peopleList.Count * peopleFoodCost;
+            sacBalance = sacPerDay * curDay;
+        } else {
+            EndGame();
+        }
+    }
+
+    //End game
+    void EndGame() {
+        Time.timeScale = 0;
+    }
+
+    //Sacrifices person
+    void Sacrifice(Person p) {
+        sacBalance--;
+        Destroy(p.gameObject);
+    }
 }
