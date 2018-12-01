@@ -50,18 +50,18 @@ public class Farm : MonoBehaviour {
         workers.Remove(p);
     }
 
+    // Visual feedback to show this object is clickable
     private void OnMouseDown() {
         transform.localScale = new Vector2(1.1f, 1.1f);
     }
-
     private void OnMouseEnter() {
         transform.localScale = new Vector2(1.05f, 1.05f);
     }
-
     private void OnMouseExit() {
         transform.localScale = new Vector2(1f, 1f);
     }
 
+    //Give visual feedback and perform an action when clicked
     private void OnMouseUpAsButton() {
         transform.localScale = new Vector2(1.05f, 1.05f);
         Village.instance.AssignFarmJob();
