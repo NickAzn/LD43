@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Item : MonoBehaviour {
+    
 
     public float farming;
     public float sex;
@@ -22,7 +23,11 @@ public class Item : MonoBehaviour {
 		
 	}
 
-    void Increase() {
+    public float Increase(float food) {
 
+        
+
+        food = food + farming;
+        return food;
     }
 }
