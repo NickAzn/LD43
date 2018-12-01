@@ -35,19 +35,27 @@ public class Person : MonoBehaviour {
         }
 	}
 	
-    public int getFarmSkill() {
+    public int GetFarmSkill() {
         return farmSkill;
     }
 
-    public int getFertilSkill() {
+    public int GetFertilSkill() {
         return fertilSkill;
     }
 
-    public int getBuildSkill() {
+    public int GetBuildSkill() {
         return buildSkill;
     }
 
-    public int getHuntSkill() {
+    public int GetHuntSkill() {
         return huntSkill;
+    }
+
+    private void OnMouseDown() {
+        Village v = Village.instance;
+        if (v.GetSelectedPerson() == this)
+            v.DeselectPerson();
+        else
+            v.SelectPerson(this);
     }
 }

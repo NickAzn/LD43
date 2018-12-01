@@ -92,6 +92,7 @@ public class Village : MonoBehaviour {
     public void AssignFarmJob() {
         if (selectedPerson != null) {
             if (farm.HireWorker(selectedPerson)) {
+                RemovePersonJob();
                 selectedPerson.job = 1;
                 DeselectPerson();
             }
@@ -101,6 +102,7 @@ public class Village : MonoBehaviour {
     public void AssignBuilderJob() {
         if (selectedPerson != null) {
             if (construction.HireWorker(selectedPerson)) {
+                RemovePersonJob();
                 selectedPerson.job = 2;
                 DeselectPerson();
             }
@@ -110,10 +112,20 @@ public class Village : MonoBehaviour {
     public void AssignTreasureJob() {
         if (selectedPerson != null) {
             if (tavern.HireWorker(selectedPerson)) {
+                RemovePersonJob();
                 selectedPerson.job = 3;
                 DeselectPerson();
             }
         }
+    }
+
+    void RemovePersonJob() {
+        if (selectedPerson.job == 1)
+            farm.RemoveWorker(selectedPerson);
+        else if (selectedPerson.job == 2)
+            construction.RemoveWorker(selectedPerson);
+        else if (selectedPerson.job == 3)
+            tavern.RemoveWorker(selectedPerson);
     }
 
     public void AssignHome() {
@@ -131,5 +143,9 @@ public class Village : MonoBehaviour {
 
     public void DeselectPerson() {
         selectedPerson = null;
+    }
+
+    public Person GetSelectedPerson() {
+        return selectedPerson;
     }
 }

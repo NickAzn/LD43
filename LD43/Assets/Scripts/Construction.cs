@@ -42,4 +42,8 @@ public class Construction : MonoBehaviour {
         p.job = 0;
         workers.Remove(p);
     }
+
+    private void OnMouseDown() {
+        Village.instance.AssignBuilderJob();
+    }
 }

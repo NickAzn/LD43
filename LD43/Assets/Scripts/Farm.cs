@@ -24,7 +24,7 @@ public class Farm : MonoBehaviour {
         float yield = 0;
 
         for (int i = 0; i < workers.Count; i++) {
-            yield += workers[i].getFarmSkill();
+            yield += workers[i].GetFarmSkill();
         }
 
         return yield;
@@ -48,5 +48,9 @@ public class Farm : MonoBehaviour {
     public void RemoveWorker(Person p) {
         p.job = 0;
         workers.Remove(p);
+    }
+
+    private void OnMouseDown() {
+        Village.instance.AssignFarmJob();
     }
 }
