@@ -24,7 +24,7 @@ public class House : MonoBehaviour {
 
         for (int i = 0; i < pairs; i++) {
             if (Random.Range(0,5) == 0) {
-                //make person pregnant
+                residents[i].pregnant = true;
             }
         }
     }
