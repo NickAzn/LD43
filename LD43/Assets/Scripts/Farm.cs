@@ -35,4 +35,18 @@ public class Farm : MonoBehaviour {
         rank++;
         maxWorkers += workerCapIncreasePerRank;
     }
+
+    public bool HireWorker(Person p) {
+        bool success = false;
+        if (workers.Count < maxWorkers) {
+            workers.Add(p);
+            success = true;
+        }
+        return success;
+    }
+
+    public void RemoveWorker(Person p) {
+        p.job = 0;
+        workers.Remove(p);
+    }
 }

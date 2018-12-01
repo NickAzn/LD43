@@ -18,7 +18,7 @@ public class Village : MonoBehaviour {
     public GameObject personPrefab;
     public House house;
     public Farm farm;
-    public Construction constuction;
+    public Construction construction;
     public Tavern tavern;
 
     List<Item> itemList = new List<Item>();
@@ -26,6 +26,8 @@ public class Village : MonoBehaviour {
     int sacBalance;
     int curDay = 1;
     float curDayTime = 0f;
+
+    Person selectedPerson;
 
 
 	// Use this for initialization
@@ -39,6 +41,7 @@ public class Village : MonoBehaviour {
             GameObject ob = Instantiate(personPrefab);
             Person p = ob.GetComponent<Person>();
             peopleList.Add(p);
+            house.AddToHouse(p);
         }
         UIManager.instance.UpdatePersonCountText(peopleList.Count);
 	}
@@ -75,5 +78,49 @@ public class Village : MonoBehaviour {
         sacBalance--;
         UIManager.instance.UpdateSacBalanceText(sacBalance);
         Destroy(p.gameObject);
+    }
+
+    public void AssignFarmJob() {
+        if (selectedPerson != null) {
+            if (farm.HireWorker(selectedPerson)) {
+                selectedPerson.job = 1;
+                DeselectPerson();
+            }
+        }
+    }
+
+    public void AssignBuilderJob() {
+        if (selectedPerson != null) {
+            if (construction.HireWorker(selectedPerson)) {
+                selectedPerson.job = 2;
+                DeselectPerson();
+            }
+        }
+    }
+
+    public void AssignTreasureJob() {
+        if (selectedPerson != null) {
+            if (tavern.HireWorker(selectedPerson)) {
+                selectedPerson.job = 3;
+                DeselectPerson();
+            }
+        }
+    }
+
+    public void AssignHome() {
+        if (selectedPerson != null) {
+            if (house.AddToHouse(selectedPerson)) {
+                selectedPerson.homeless = false;
+                DeselectPerson();
+            }
+        }
+    }
+
+    public void SelectPerson(Person p) {
+        selectedPerson = p;
+    }
+
+    public void DeselectPerson() {
+        selectedPerson = null;
     }
 }
