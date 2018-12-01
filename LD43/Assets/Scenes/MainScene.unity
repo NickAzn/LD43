@@ -491,6 +491,9 @@ MonoBehaviour:
   peopleFoodCost: 0.5
   dayLength: 30
   sacPerDay: 1
+  startPersonCount: 10
+  personPrefab: {fileID: 1515086506418378, guid: 1d073cd9ed53ddb40a3d166f01f11475,
+    type: 2}
   house: {fileID: 246327651}
   farm: {fileID: 1837245541}
   constuction: {fileID: 517227839}
