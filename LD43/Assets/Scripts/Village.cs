@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Village : MonoBehaviour {
 
+    public static Village instance;
+
     // Game stats given in editor
     public float startFood;
     public float peopleFoodCost;
@@ -32,6 +34,13 @@ public class Village : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
+        //singleton
+        if (instance == null) {
+            instance = this;
+        } else {
+            Destroy(gameObject);
+        }
+
         food = startFood;
         UIManager.instance.UpdateFoodText(food);
         sacBalance = 1;
