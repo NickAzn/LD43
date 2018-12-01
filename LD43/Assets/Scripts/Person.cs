@@ -3,33 +3,51 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Person : MonoBehaviour {
-
-    private float rndNumber;
     
-    public string gender;
     public int age;
     public bool homeless;
     public int job;
     public bool pregnant;
-    
-	// Use this for initialization
-	void Start () {
-        rndNumber = Random.Range(1f, 2f);
 
-        if(rndNumber == 1){
-            gender = "male";
-        }
-        else {
-            gender = "female";
-        }
+    int farmSkill;
+    int fertilSkill;
+    int buildSkill;
+    int huntSkill;
+    
+    // Use this for initialization
+    void Start () {
 
         age = 0;
         homeless = true;
         job = 0;
+
+        int statPoints = Random.Range(2, 7);
+        for (int i = 0; i < statPoints; i++) {
+            int rndStat = Random.Range(0, 4);
+            if (rndStat == 0)
+                farmSkill++;
+            else if (rndStat == 1)
+                fertilSkill++;
+            else if (rndStat == 2)
+                buildSkill++;
+            else
+                huntSkill++;
+        }
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public int getFarmSkill() {
+        return farmSkill;
+    }
+
+    public int getFertilSkill() {
+        return fertilSkill;
+    }
+
+    public int getBuildSkill() {
+        return buildSkill;
+    }
+
+    public int getHuntSkill() {
+        return huntSkill;
+    }
 }

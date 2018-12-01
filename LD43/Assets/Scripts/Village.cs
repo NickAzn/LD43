@@ -9,11 +9,13 @@ public class Village : MonoBehaviour {
     public float peopleFoodCost;
     public float dayLength;
     public int sacPerDay;
+    public int startPersonCount;
 
     List<Person> peopleList = new List<Person>();
     float food;
 
     // Declared in editor
+    public GameObject personPrefab;
     public House house;
     public Farm farm;
     public Construction constuction;
@@ -30,6 +32,12 @@ public class Village : MonoBehaviour {
 	void Awake () {
         food = startFood;
         sacBalance = 1;
+
+        for (int i = 0; i < startPersonCount; i++) {
+            GameObject ob = Instantiate(personPrefab);
+            Person p = ob.GetComponent<Person>();
+            peopleList.Add(p);
+        }
 	}
 	
 	// Update is called once per frame
