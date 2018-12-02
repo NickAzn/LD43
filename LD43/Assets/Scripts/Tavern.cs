@@ -84,6 +84,6 @@ public class Tavern : MonoBehaviour {
         SoundManager.instance.PlaySfx(clickUpSound);
         transform.localScale = new Vector2(1.05f, 1.05f);
         Village.instance.AssignTreasureJob();
-        UIManager.instance.ShowTavernUI(workers);
+        UIManager.instance.ToggleTavernUI(workers);
     }
 }

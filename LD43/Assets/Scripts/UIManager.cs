@@ -46,6 +46,7 @@ public class UIManager : MonoBehaviour {
         sacBalanceText.text = "Required Sacrifices: " + amt.ToString();
     }
 
+    //Displays list of people into content rect transform sets content to proper size for number of people
     public void DisplayAllPeople(List<Person> people, RectTransform content) {
 
         foreach (Transform child in content) {
@@ -66,16 +67,26 @@ public class UIManager : MonoBehaviour {
             obTrans.anchorMax = new Vector2(0f, .5f);
             obTrans.anchorMin = new Vector2(0f, .5f);
             obTrans.anchoredPosition = new Vector2(80 + i * 160, 0);
-            obTrans.localScale = new Vector2(1, 1);
+            obTrans.localScale = new Vector3(1, 1, 1);
         }
     }
 
-    public void ShowNightUI() {
+    public void ShowAllPeopleUI() {
         DisplayAllPeople(Village.instance.GetPeopleList(), allPeopleListUI);
+        allPeopleListUI.transform.parent.gameObject.SetActive(true);
+    }
+
+    public void HideAllPeopleUI() {
+        allPeopleListUI.transform.parent.gameObject.SetActive(false);
+    }
+
+    public void ShowNightUI() {
+        ShowAllPeopleUI();
         nightUI.SetActive(true);
     }
 
     public void HideNightUI() {
+        HideAllPeopleUI();
         nightUI.SetActive(false);
     }
 
@@ -91,4 +102,13 @@ public class UIManager : MonoBehaviour {
     public void HideTavernUI() {
         tavernUI.SetActive(false);
     }
+
+    public void ToggleTavernUI(List<Person> workers) {
+        if (tavernUI.activeInHierarchy) {
+            HideTavernUI();
+        } else {
+            ShowTavernUI(workers);
+        }
+    }
+
 }

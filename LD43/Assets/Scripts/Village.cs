@@ -24,6 +24,7 @@ public class Village : MonoBehaviour {
     public Farm farm;
     public Construction construction;
     public Tavern tavern;
+    public AudioClip endDaySound;
 
     List<Item> itemList = new List<Item>();
 
@@ -73,6 +74,7 @@ public class Village : MonoBehaviour {
 
     //Ends the day and starts new day
     public void EndDay() {
+        SoundManager.instance.PlaySfx(endDaySound);
         curDayTime = dayLength - .01f;
         UIManager.instance.UpdateDayTimeText((int)(dayLength - curDayTime));
         food -= peopleList.Count * peopleFoodCost;
