@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour {
     public TextMeshProUGUI dayTimeText;
     public TextMeshProUGUI personCountText;
     public TextMeshProUGUI sacBalanceText;
-    public TextMeshProUGUI buildingWorkerList;
+    public ScrollRect buildingWorkerList;
 
     private void Awake() {
         //Singleton
@@ -37,5 +37,13 @@ public class UIManager : MonoBehaviour {
 
     public void UpdateSacBalanceText(int amt) {
         sacBalanceText.text = "Required Sacrifices: " + amt.ToString();
+    }
+
+    public void DisplayAllWorkers(List<Person> workers)
+    {
+        for (int i = 0; i < workers.Count; i++)
+        {
+
+        }
     }
 }
