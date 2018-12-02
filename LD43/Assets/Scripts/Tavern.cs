@@ -12,7 +12,7 @@ public class Tavern : MonoBehaviour {
     int maxWorkers;
     int rank;
 
-    public Sprite[] tarvernSprites;
+    public Sprite[] tavernSprites;
 
     // Use this for initialization
     void Start () {

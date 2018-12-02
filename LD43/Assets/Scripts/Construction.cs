@@ -12,7 +12,7 @@ public class Construction : MonoBehaviour {
     int maxWorkers;
     int rank;
 
-    public Sprite[] tarvernSprites;
+    public Sprite[] constructionSprites;
 
     // Use this for initialization
     void Start() {
