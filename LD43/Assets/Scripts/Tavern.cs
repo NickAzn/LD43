@@ -12,6 +12,11 @@ public class Tavern : MonoBehaviour {
     int maxWorkers;
     int rank;
 
+    int harvestIdols = 0;
+    int fertilityIdols = 0;
+    int bloodIdols = 0;
+    int constructionIdols = 0;
+
     public Sprite[] tavernSprites;
     public AudioClip hoverSound;
     public AudioClip clickDownSound;
@@ -24,9 +29,20 @@ public class Tavern : MonoBehaviour {
 	}
 	
     public void Work() {
+        int idolNumber;
+
         for (int i = 0; i < workers.Count; i++) {
             if (Random.Range(0,10) == 0) {
-                //get item
+                idolNumber = (Random.Range(1,4));
+                if(idolNumber == 1) {
+                    harvestIdols++;
+                }else if(idolNumber == 2) {
+                    fertilityIdols++;
+                }else if(idolNumber == 3) {
+                    bloodIdols++;
+                }else if(idolNumber == 4) {
+                    constructionIdols++;
+                }
             }
         }
     }
