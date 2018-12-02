@@ -18,6 +18,8 @@ public class UIManager : MonoBehaviour {
     public GameObject nightUI;
     public RectTransform allPeopleListUI;
     public GameObject endGameUI;
+    public GameObject tavernUI;
+    public RectTransform tavernWorkerList;
 
     private void Awake() {
         //Singleton
@@ -46,6 +48,10 @@ public class UIManager : MonoBehaviour {
 
     public void DisplayAllPeople(List<Person> people, RectTransform content) {
 
+        foreach (Transform child in content) {
+            Destroy(child.gameObject);
+        }
+
         content.sizeDelta = new Vector2(people.Count * 160f, 0f);
         content.localPosition = new Vector2(people.Count * 80f, 0f);
 
@@ -60,6 +66,7 @@ public class UIManager : MonoBehaviour {
             obTrans.anchorMax = new Vector2(0f, .5f);
             obTrans.anchorMin = new Vector2(0f, .5f);
             obTrans.anchoredPosition = new Vector2(80 + i * 160, 0);
+            obTrans.localScale = new Vector2(1, 1);
         }
     }
 
@@ -74,5 +81,14 @@ public class UIManager : MonoBehaviour {
 
     public void ShowGameOverUI() {
         endGameUI.SetActive(true);
+    }
+
+    public void ShowTavernUI(List<Person> workers) {
+        DisplayAllPeople(workers, tavernWorkerList);
+        tavernUI.SetActive(true);
+    }
+
+    public void HideTavernUI() {
+        tavernUI.SetActive(false);
     }
 }
