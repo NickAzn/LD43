@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Person : MonoBehaviour {
 
-    public string name;
+    public string personName;
     public int age;
     public bool homeless;
     public int job;
@@ -20,7 +20,7 @@ public class Person : MonoBehaviour {
 
         string[] arrOfNames = new string[] { "Sean", "Nick", "Nich", "Tyler", "Vincent", "Sam", "Katie", "Aaron", "Janie", "Joe", "Derek", "Josh", "Will", "Millie", "Leslie", "Emily", "Daisy", "Donald", "Carmen", "Lana"};
 
-        name = arrOfNames[Random.Range(0, (arrOfNames.Length - 1))];
+        personName = arrOfNames[Random.Range(0, arrOfNames.Length)];
         age = 0;
         homeless = true;
         job = 0;

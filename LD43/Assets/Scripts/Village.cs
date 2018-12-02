@@ -86,6 +86,11 @@ public class Village : MonoBehaviour {
     void Sacrifice(Person p) {
         sacBalance--;
         UIManager.instance.UpdateSacBalanceText(sacBalance);
+        peopleList.Remove(p);
+        if (p.job != 0)
+            RemovePersonJob(p);
+        if (p.homeless == false)
+            house.RemovePerson(p);
         Destroy(p.gameObject);
     }
 
@@ -126,6 +131,15 @@ public class Village : MonoBehaviour {
             construction.RemoveWorker(selectedPerson);
         else if (selectedPerson.job == 3)
             tavern.RemoveWorker(selectedPerson);
+    }
+
+    void RemovePersonJob(Person p) {
+        if (p.job == 1)
+            farm.RemoveWorker(p);
+        else if (p.job == 2)
+            construction.RemoveWorker(p);
+        else if (p.job == 3)
+            tavern.RemoveWorker(p);
     }
 
     public void AssignHome() {

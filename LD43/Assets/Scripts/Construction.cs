@@ -13,6 +13,9 @@ public class Construction : MonoBehaviour {
     int rank;
 
     public Sprite[] constructionSprites;
+    public AudioClip hoverSound;
+    public AudioClip clickDownSound;
+    public AudioClip clickUpSound;
 
     // Use this for initialization
     void Start() {
@@ -45,9 +48,11 @@ public class Construction : MonoBehaviour {
 
     // Visual feedback to show this object is clickable
     private void OnMouseDown() {
+        SoundManager.instance.PlaySfx(clickDownSound);
         transform.localScale = new Vector2(1.1f, 1.1f);
     }
     private void OnMouseEnter() {
+        SoundManager.instance.PlaySfx(hoverSound);
         transform.localScale = new Vector2(1.05f, 1.05f);
     }
     private void OnMouseExit() {
@@ -56,6 +61,7 @@ public class Construction : MonoBehaviour {
 
     //Give visual feedback and perform an action when clicked
     private void OnMouseUpAsButton() {
+        SoundManager.instance.PlaySfx(clickUpSound);
         transform.localScale = new Vector2(1.05f, 1.05f);
         Village.instance.AssignBuilderJob();
     }

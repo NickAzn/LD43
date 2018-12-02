@@ -13,7 +13,7 @@ public class UIPerson : MonoBehaviour {
 
 	public void UpdateDisplay() {
         if (person != null) {
-            nameText.text = person.name;
+            nameText.text = person.personName;
             skillsText.text = "Fertility: " + person.GetFertilSkill()
                                + "\nFarming: " + person.GetFarmSkill()
                                + "\nBuilding: " + person.GetBuildSkill()

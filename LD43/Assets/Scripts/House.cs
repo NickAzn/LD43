@@ -13,8 +13,12 @@ public class House : MonoBehaviour {
 
     public Sprite[] houseSprites;
 
-	// Use this for initialization
-	void Start () {
+    public AudioClip hoverSound;
+    public AudioClip clickDownSound;
+    public AudioClip clickUpSound;
+
+    // Use this for initialization
+    void Start () {
         maxPeople = startPersonCap;
         rank = 1;
 	}
@@ -50,9 +54,11 @@ public class House : MonoBehaviour {
 
     // Visual feedback to show this object is clickable
     private void OnMouseDown() {
+        SoundManager.instance.PlaySfx(clickDownSound);
         transform.localScale = new Vector2(1.1f, 1.1f);
     }
     private void OnMouseEnter() {
+        SoundManager.instance.PlaySfx(hoverSound);
         transform.localScale = new Vector2(1.05f, 1.05f);
     }
     private void OnMouseExit() {
@@ -61,6 +67,7 @@ public class House : MonoBehaviour {
 
     //Give visual feedback and perform an action when clicked
     private void OnMouseUpAsButton() {
+        SoundManager.instance.PlaySfx(clickUpSound);
         transform.localScale = new Vector2(1.05f, 1.05f);
         //TODO: action on click
     }
