@@ -11,8 +11,10 @@ public class SoundManager : MonoBehaviour {
 
     // Use this for initialization
     void Awake() {
+        //Singleton that persists through scenes
         if (instance == null) {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         } else {
             Destroy(gameObject);
         }
