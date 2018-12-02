@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour {
     public TextMeshProUGUI dayTimeText;
     public TextMeshProUGUI personCountText;
     public TextMeshProUGUI sacBalanceText;
+    public TextMeshProUGUI buildingWorkerList;
 
     private void Awake() {
         //Singleton

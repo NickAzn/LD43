@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Person : MonoBehaviour {
-    
+
+    public string name;
     public int age;
     public bool homeless;
     public int job;
@@ -16,6 +17,9 @@ public class Person : MonoBehaviour {
     
     // Use this for initialization
     void Start () {
+
+        string[] arrOfNames = new string[] { "Sean", "Nick", "Nich", "Tyler"};
+
 
         age = 0;
         homeless = true;
