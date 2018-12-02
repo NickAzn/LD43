@@ -28,6 +28,7 @@ public class Village : MonoBehaviour {
     int sacBalance;
     int curDay = 1;
     float curDayTime = 0f;
+    bool isNight = false;
 
     Person selectedPerson;
 
@@ -57,28 +58,49 @@ public class Village : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        curDayTime += Time.deltaTime;
-        if (curDayTime >= dayLength)
-            EndDay();
-        UIManager.instance.UpdateDayTimeText((int)(dayLength - curDayTime));
+        if (!isNight) {
+            curDayTime += Time.deltaTime;
+            if (curDayTime >= dayLength)
+                EndDay();
+            UIManager.instance.UpdateDayTimeText((int)(dayLength - curDayTime));
+        }
 	}
 
     //Ends the day and starts new day
-    void EndDay() {
-        if (sacBalance <= 0) {
+    public void EndDay() {
+        curDayTime = dayLength - .01f;
+        UIManager.instance.UpdateDayTimeText((int)(dayLength - curDayTime));
+        food -= peopleList.Count * peopleFoodCost;
+        food += farm.Work();
+        UIManager.instance.UpdateFoodText(food);
+        if (food < 0)
+            EndGame();
+        else
+            StartNight();
+    }
+
+    void StartNight() {
+        isNight = true;
+        UIManager.instance.ShowNightUI();
+        //Display sacrifice UI
+    }
+
+    public void EndNight() {
+        if (sacBalance > 0) {
+            UIManager.instance.HideNightUI();
+            EndGame();
+        } else {
+            isNight = false;
             curDayTime = 0;
             curDay++;
-            food -= peopleList.Count * peopleFoodCost;
-            food += farm.Work();
-            UIManager.instance.UpdateFoodText(food);
             sacBalance = sacPerDay * curDay;
-        } else {
-            EndGame();
+            UIManager.instance.HideNightUI();
         }
     }
 
     //End game
     void EndGame() {
+        UIManager.instance.ShowGameOverUI();
         Time.timeScale = 0;
     }
 

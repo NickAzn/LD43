@@ -13,6 +13,8 @@ public class UIManager : MonoBehaviour {
     public TextMeshProUGUI personCountText;
     public TextMeshProUGUI sacBalanceText;
     public ScrollRect buildingWorkerList;
+    public GameObject nightUI;
+    public GameObject endGameUI;
 
     private void Awake() {
         //Singleton
@@ -45,5 +47,17 @@ public class UIManager : MonoBehaviour {
         {
 
         }
+    }
+
+    public void ShowNightUI() {
+        nightUI.SetActive(true);
+    }
+
+    public void HideNightUI() {
+        nightUI.SetActive(false);
+    }
+
+    public void ShowGameOverUI() {
+        endGameUI.SetActive(true);
     }
 }
