@@ -77,6 +77,7 @@ public class Village : MonoBehaviour {
         UIManager.instance.UpdateDayTimeText((int)(dayLength - curDayTime));
         food -= peopleList.Count * peopleFoodCost;
         food += farm.Work();
+        tavern.Work();
         UIManager.instance.UpdateFoodText(food);
         if (food < 0)
             EndGame();
