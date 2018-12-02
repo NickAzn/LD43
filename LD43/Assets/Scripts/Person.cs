@@ -18,9 +18,7 @@ public class Person : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        string[] arrOfNames = new string[] { "Sean", "Nick", "Nich", "Tyler", "Vincent", "Sam", "Katie", "Aaron", "Janie", "Joe", "Derek", "Josh", "Will", "Millie", "Leslie", "Emily", "Daisy", "Donald", "Carmen", "Lana"};
-
-        personName = arrOfNames[Random.Range(0, arrOfNames.Length)];
+        personName = Village.instance.GetRandomName();
         age = 0;
         homeless = true;
         job = 0;

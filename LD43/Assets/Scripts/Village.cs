@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using UnityEngine.Networking;
 
 public class Village : MonoBehaviour {
 
@@ -32,6 +34,8 @@ public class Village : MonoBehaviour {
 
     Person selectedPerson;
 
+    public List<string> availNames;
+
 
 	// Use this for initialization
 	void Awake () {
@@ -41,6 +45,7 @@ public class Village : MonoBehaviour {
         } else {
             Destroy(gameObject);
         }
+        
 
         food = startFood;
         UIManager.instance.UpdateFoodText(food);
@@ -108,11 +113,16 @@ public class Village : MonoBehaviour {
     void Sacrifice(Person p) {
         sacBalance--;
         UIManager.instance.UpdateSacBalanceText(sacBalance);
+        Kill(p);
+    }
+
+    void Kill(Person p) {
         peopleList.Remove(p);
         if (p.job != 0)
             RemovePersonJob(p);
         if (p.homeless == false)
             house.RemovePerson(p);
+        availNames.Add(p.personName);
         Destroy(p.gameObject);
     }
 
@@ -188,5 +198,20 @@ public class Village : MonoBehaviour {
 
     public Person GetSelectedPerson() {
         return selectedPerson;
+    }
+
+    public List<Person> GetPeopleList() {
+        return peopleList;
+    }
+
+    public string GetRandomName() {
+        if (availNames.Count == 0) {
+            return "No Name";
+        }  else {
+            int rand = Random.Range(0, availNames.Count);
+            string name = availNames[rand];
+            availNames.RemoveAt(rand);
+            return name;
+        }
     }
 }

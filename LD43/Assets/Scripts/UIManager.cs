@@ -8,12 +8,15 @@ public class UIManager : MonoBehaviour {
 
     public static UIManager instance = null;
 
+    public GameObject personUIPrefab;
+
     public TextMeshProUGUI foodText;
     public TextMeshProUGUI dayTimeText;
     public TextMeshProUGUI personCountText;
     public TextMeshProUGUI sacBalanceText;
     public ScrollRect buildingWorkerList;
     public GameObject nightUI;
+    public RectTransform allPeopleListUI;
     public GameObject endGameUI;
 
     private void Awake() {
@@ -41,15 +44,27 @@ public class UIManager : MonoBehaviour {
         sacBalanceText.text = "Required Sacrifices: " + amt.ToString();
     }
 
-    public void DisplayAllWorkers(List<Person> workers)
-    {
-        for (int i = 0; i < workers.Count; i++)
-        {
+    public void DisplayAllPeople(List<Person> people, RectTransform content) {
 
+        content.sizeDelta = new Vector2(people.Count * 160f, 0f);
+        content.localPosition = new Vector2(people.Count * 80f, 0f);
+
+        for (int i = 0; i < people.Count; i++) {
+            GameObject ob = Instantiate(personUIPrefab);
+            UIPerson personUI = ob.GetComponent<UIPerson>();
+            personUI.person = people[i];
+            personUI.UpdateDisplay();
+
+            ob.transform.SetParent(content);
+            RectTransform obTrans = ob.GetComponent<RectTransform>();
+            obTrans.anchorMax = new Vector2(0f, .5f);
+            obTrans.anchorMin = new Vector2(0f, .5f);
+            obTrans.anchoredPosition = new Vector2(80 + i * 160, 0);
         }
     }
 
     public void ShowNightUI() {
+        DisplayAllPeople(Village.instance.GetPeopleList(), allPeopleListUI);
         nightUI.SetActive(true);
     }
 
