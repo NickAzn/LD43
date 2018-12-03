@@ -61,6 +61,13 @@ public class Village : MonoBehaviour {
         }
     }
 
+    public void IncrementSacBalance(int amt) {
+        sacBalance += amt;
+        if (sacBalance < 0)
+            sacBalance = 0;
+        UIManager.instance.UpdateSacBalanceText(sacBalance);
+    }
+
     public void NewVillager() {
         Person p = new Person();
 
@@ -75,12 +82,14 @@ public class Village : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (!isNight) {
-            curDayTime += Time.deltaTime;
-            if (curDayTime >= dayLength)
+        curDayTime += Time.deltaTime;
+        if (curDayTime >= dayLength) {
+            if (!isNight)
                 EndDay();
-            UIManager.instance.UpdateDayTimeText((int)(dayLength - curDayTime));
+            else
+                EndNight();
         }
+        UIManager.instance.UpdateDayTimeText((int)(dayLength - curDayTime));
 
         if (personHighlighter == null)
             personHighlighter = Instantiate(personHighlighterPrefab);
@@ -89,11 +98,10 @@ public class Village : MonoBehaviour {
     //Ends the day and starts new day
     public void EndDay() {
         SoundManager.instance.PlaySfx(endDaySound);
-        curDayTime = dayLength - .01f;
+        curDayTime = 0;
         UIManager.instance.UpdateDayTimeText((int)(dayLength - curDayTime));
         food -= peopleList.Count * peopleFoodCost;
         food += farm.Work();
-        tavern.Work();
         UIManager.instance.UpdateFoodText(food);
         if (food < 0)
             EndGame();
@@ -119,6 +127,7 @@ public class Village : MonoBehaviour {
             sacBalance = sacPerDay * curDay;
             house.Sex();
             construction.Build();
+            tavern.Work();
             UIManager.instance.UpdateSacBalanceText(sacBalance);
             UIManager.instance.HideNightUI();
         }
@@ -141,8 +150,7 @@ public class Village : MonoBehaviour {
             else if (selectedPerson.job == 3)
                 dieBoi = tavern.GetWorkerSprite();
             UIManager.instance.ShowSacAnimation(dieBoi);
-            sacBalance--;
-            UIManager.instance.UpdateSacBalanceText(sacBalance);
+            IncrementSacBalance(-1);
             Kill(selectedPerson);
         }
     }

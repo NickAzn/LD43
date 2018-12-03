@@ -11,11 +11,12 @@ public class Tavern : MonoBehaviour,  Building {
     List<Person> workers = new List<Person>();
     int maxWorkers;
     int rank;
-
+    /*
     int harvestIdols = 0;
     int fertilityIdols = 0;
     int bloodIdols = 0;
     int constructionIdols = 0;
+    */
 
     public Sprite workerSprite;
     public Sprite[] tavernSprites;
@@ -31,20 +32,10 @@ public class Tavern : MonoBehaviour,  Building {
 	}
 	
     public void Work() {
-        int idolNumber;
-
-        for (int i = 0; i < workers.Count; i++) {
-            if (Random.Range(0,10) == 0) {
-                idolNumber = (Random.Range(1,4));
-                if(idolNumber == 1) {
-                    harvestIdols++;
-                }else if(idolNumber == 2) {
-                    fertilityIdols++;
-                }else if(idolNumber == 3) {
-                    bloodIdols++;
-                }else if(idolNumber == 4) {
-                    constructionIdols++;
-                }
+        int power = GetBuildingPower();
+        for (int i = 0; i < power; i++) {
+            if (Random.Range(0,7) == 0) {
+                Village.instance.IncrementSacBalance(-1);
             }
         }
     }

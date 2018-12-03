@@ -51,7 +51,7 @@ public class UIManager : MonoBehaviour {
     }
 
     public void UpdateDayTimeText(int remTime) {
-        dayTimeText.text = "Remaining Daytime: " + remTime.ToString();
+        dayTimeText.text = "Remaining Time: " + remTime.ToString();
     }
 
     public void UpdatePersonCountText(int amt) {
