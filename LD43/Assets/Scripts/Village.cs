@@ -93,6 +93,7 @@ public class Village : MonoBehaviour {
     //displays nightUI
     void StartNight() {
         isNight = true;
+        DeselectPerson();
         UIManager.instance.ShowNightUI();
     }
 
@@ -120,6 +121,7 @@ public class Village : MonoBehaviour {
         if (selectedPerson != null) {
             sacBalance--;
             UIManager.instance.UpdateSacBalanceText(sacBalance);
+            UIManager.instance.ShowAllPeopleUI();
             Kill(selectedPerson);
         }
     }
@@ -131,6 +133,8 @@ public class Village : MonoBehaviour {
         if (p.homeless == false)
             house.RemovePerson(p);
         availNames.Add(p.personName);
+        if (selectedPerson == p)
+            DeselectPerson();
         p = null;
     }
 
