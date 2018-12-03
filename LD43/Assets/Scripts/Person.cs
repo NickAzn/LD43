@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Person : MonoBehaviour {
+public class Person {
 
     public string personName;
     public int age;
@@ -16,7 +16,7 @@ public class Person : MonoBehaviour {
     int huntSkill;
     
     // Use this for initialization
-    void Start () {
+    public Person () {
 
         personName = Village.instance.GetRandomName();
         age = 0;
@@ -51,26 +51,5 @@ public class Person : MonoBehaviour {
 
     public int GetHuntSkill() {
         return huntSkill;
-    }
-
-    // Visual feedback to show this object is clickable
-    private void OnMouseDown() {
-        transform.localScale = new Vector2(1.1f, 1.1f);
-    }
-    private void OnMouseEnter() {
-        transform.localScale = new Vector2(1.05f, 1.05f);
-    }
-    private void OnMouseExit() {
-        transform.localScale = new Vector2(1f, 1f);
-    }
-
-    //Give visual feedback and perform an action when clicked
-    private void OnMouseUpAsButton() {
-        transform.localScale = new Vector2(1.05f, 1.05f);
-        Village v = Village.instance;
-        if (v.GetSelectedPerson() == this)
-            v.DeselectPerson();
-        else
-            v.SelectPerson(this);
     }
 }

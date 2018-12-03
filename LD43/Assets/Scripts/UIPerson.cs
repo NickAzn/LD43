@@ -20,4 +20,11 @@ public class UIPerson : MonoBehaviour {
                                + "\nHunting: " + person.GetHuntSkill();
         }
     }
+
+    public void SelectPerson() {
+        Village v = Village.instance;
+        v.SelectPerson(person);
+        v.GetPersonHighlighter().transform.SetParent(transform);
+        v.GetPersonHighlighter().transform.localPosition = new Vector3(0, 0, 0);
+    }
 }

@@ -19,7 +19,8 @@ public class Village : MonoBehaviour {
     float food;
 
     // Declared in editor
-    public GameObject personPrefab;
+    public GameObject personHighlighterPrefab;
+    GameObject personHighlighter;
     public House house;
     public Farm farm;
     public Construction construction;
@@ -54,8 +55,7 @@ public class Village : MonoBehaviour {
         UIManager.instance.UpdateSacBalanceText(sacBalance);
 
         for (int i = 0; i < startPersonCount; i++) {
-            GameObject ob = Instantiate(personPrefab);
-            Person p = ob.GetComponent<Person>();
+            Person p = new Person();
             peopleList.Add(p);
             house.AddToHouse(p);
         }
@@ -70,6 +70,9 @@ public class Village : MonoBehaviour {
                 EndDay();
             UIManager.instance.UpdateDayTimeText((int)(dayLength - curDayTime));
         }
+
+        if (personHighlighter == null)
+            personHighlighter = Instantiate(personHighlighterPrefab);
 	}
 
     //Ends the day and starts new day
@@ -126,7 +129,7 @@ public class Village : MonoBehaviour {
         if (p.homeless == false)
             house.RemovePerson(p);
         availNames.Add(p.personName);
-        Destroy(p.gameObject);
+        p = null;
     }
 
     public void AssignFarmJob() {
@@ -190,13 +193,13 @@ public class Village : MonoBehaviour {
         if (selectedPerson != null) {
             DeselectPerson();
         }
+        personHighlighter.SetActive(true);
         selectedPerson = p;
-        p.GetComponent<SpriteRenderer>().color = Color.gray;
     }
 
     public void DeselectPerson() {
-        selectedPerson.GetComponent<SpriteRenderer>().color = Color.white;
         selectedPerson = null;
+        personHighlighter.SetActive(false);
     }
 
     public Person GetSelectedPerson() {
@@ -210,11 +213,15 @@ public class Village : MonoBehaviour {
     public string GetRandomName() {
         if (availNames.Count == 0) {
             return "No Name";
-        }  else {
+        } else {
             int rand = Random.Range(0, availNames.Count);
             string name = availNames[rand];
             availNames.RemoveAt(rand);
             return name;
         }
+    }
+
+    public GameObject GetPersonHighlighter() {
+        return personHighlighter;
     }
 }
