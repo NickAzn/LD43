@@ -14,12 +14,17 @@ public class UIManager : MonoBehaviour {
     public TextMeshProUGUI dayTimeText;
     public TextMeshProUGUI personCountText;
     public TextMeshProUGUI sacBalanceText;
-    public ScrollRect buildingWorkerList;
     public GameObject nightUI;
     public RectTransform allPeopleListUI;
     public GameObject endGameUI;
-    public GameObject tavernUI;
-    public RectTransform tavernWorkerList;
+
+    public GameObject buildingUI;
+    public RectTransform buildingWorkerList;
+    public Image buildingWorkerImage;
+    public Button buildingHireButton;
+    public Button buildingFireButton;
+    public TextMeshProUGUI buildingNameText;
+    public TextMeshProUGUI buildingCountText;
 
     private void Awake() {
         //Singleton
@@ -94,21 +99,30 @@ public class UIManager : MonoBehaviour {
         endGameUI.SetActive(true);
     }
 
-    public void ShowTavernUI(List<Person> workers) {
-        DisplayAllPeople(workers, tavernWorkerList);
-        tavernUI.SetActive(true);
+    public void ShowTavernUI(Tavern t) {
+        ShowBuilidingUI(t);
     }
 
-    public void HideTavernUI() {
-        tavernUI.SetActive(false);
-    }
-
-    public void ToggleTavernUI(List<Person> workers) {
-        if (tavernUI.activeInHierarchy) {
-            HideTavernUI();
-        } else {
-            ShowTavernUI(workers);
+    public void ShowBuilidingUI(Building b) {
+        DisplayAllPeople(b.GetWorkerList(), buildingWorkerList);
+        buildingCountText.text = b.GetWorkerList().Count.ToString() + "/" + b.GetMaxWorkers().ToString();
+        string bName = b.GetName();
+        buildingNameText.text = bName;
+        if (bName.Equals("Tavern")) {
+            buildingHireButton.onClick.AddListener(() => Village.instance.AssignTreasureJob());
+        } else if (bName.Equals("Farm")) {
+            buildingHireButton.onClick.AddListener(() => Village.instance.AssignFarmJob());
+        } else if (bName.Equals("Construction")) {
+            buildingHireButton.onClick.AddListener(() => Village.instance.AssignBuilderJob());
         }
+        buildingWorkerImage.sprite = b.GetWorkerSprite();
+        buildingUI.SetActive(true);
+    }
+
+    public void HideBuildingUI() {
+        buildingHireButton.onClick.RemoveAllListeners();
+        buildingFireButton.onClick.RemoveAllListeners();
+        buildingUI.SetActive(false);
     }
 
 }

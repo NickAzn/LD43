@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tavern : MonoBehaviour {
+public class Tavern : MonoBehaviour,  Building {
 
     // Game stats given in editor
     public int startWorkerCap;
@@ -17,6 +17,7 @@ public class Tavern : MonoBehaviour {
     int bloodIdols = 0;
     int constructionIdols = 0;
 
+    public Sprite workerSprite;
     public Sprite[] tavernSprites;
     public AudioClip hoverSound;
     public AudioClip clickDownSound;
@@ -83,7 +84,22 @@ public class Tavern : MonoBehaviour {
     private void OnMouseUpAsButton() {
         SoundManager.instance.PlaySfx(clickUpSound);
         transform.localScale = new Vector2(1.05f, 1.05f);
-        Village.instance.AssignTreasureJob();
-        UIManager.instance.ToggleTavernUI(workers);
+        UIManager.instance.ShowTavernUI(this);
+    }
+
+    public Sprite GetWorkerSprite() {
+        return workerSprite;
+    }
+
+    public List<Person> GetWorkerList() {
+        return workers;
+    }
+
+    public int GetMaxWorkers() {
+        return maxWorkers;
+    }
+
+    public string GetName() {
+        return "Tavern";
     }
 }

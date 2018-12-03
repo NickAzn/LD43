@@ -162,7 +162,7 @@ public class Village : MonoBehaviour {
         }
     }
 
-    void RemovePersonJob() {
+    public void RemovePersonJob() {
         if (selectedPerson.job == 1)
             farm.RemoveWorker(selectedPerson);
         else if (selectedPerson.job == 2)
