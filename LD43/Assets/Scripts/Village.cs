@@ -57,11 +57,18 @@ public class Village : MonoBehaviour {
 
     private void Start() {
         for (int i = 0; i < startPersonCount; i++) {
-            Person p = new Person();
-            peopleList.Add(p);
-            house.HireWorker(p);
-            p.homeless = false;
+            NewVillager();
         }
+    }
+
+    public void NewVillager() {
+        Person p = new Person();
+
+        if (house.HireWorker(p)) {
+            p.homeless = false;
+            peopleList.Add(p);
+        }
+
         UIManager.instance.UpdatePersonCountText(peopleList.Count);
         UIManager.instance.ShowAllPeopleUI();
     }
@@ -110,6 +117,7 @@ public class Village : MonoBehaviour {
             curDayTime = 0;
             curDay++;
             sacBalance = sacPerDay * curDay;
+            house.Sex();
             UIManager.instance.UpdateSacBalanceText(sacBalance);
             UIManager.instance.HideNightUI();
         }
@@ -189,22 +197,25 @@ public class Village : MonoBehaviour {
     }
 
     public void RemovePersonJob() {
-        if (selectedPerson.job == 1)
-            farm.RemoveWorker(selectedPerson);
-        else if (selectedPerson.job == 2)
-            construction.RemoveWorker(selectedPerson);
-        else if (selectedPerson.job == 3)
-            tavern.RemoveWorker(selectedPerson);
+        RemovePersonJob(selectedPerson);
     }
 
     void RemovePersonJob(Person p) {
-        if (p.job == 1)
+        UIManager ui = UIManager.instance;
+        if (p.job == 1) {
             farm.RemoveWorker(p);
-        else if (p.job == 2)
+            if (ui.farmOpen)
+                ui.ShowBuilidingUI(farm);
+        } else if (p.job == 2) {
             construction.RemoveWorker(p);
-        else if (p.job == 3)
+            if (ui.constOpen)
+                ui.ShowBuilidingUI(construction);
+        } else if (p.job == 3) {
             tavern.RemoveWorker(p);
-        UIManager.instance.ShowAllPeopleUI();
+            if (ui.tavOpen)
+                ui.ShowBuilidingUI(tavern);
+        }
+        ui.ShowAllPeopleUI();
     }
 
     public void AssignHome() {

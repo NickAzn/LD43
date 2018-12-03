@@ -31,6 +31,7 @@ public class Construction : MonoBehaviour, Building {
     public void Upgrade() {
         maxWorkers += workerCapIncreasePerRank;
         rank++;
+        GetComponent<SpriteRenderer>().sprite = constructionSprites[rank - 1];
     }
 
     public bool HireWorker(Person p) {

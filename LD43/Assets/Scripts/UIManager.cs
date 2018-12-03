@@ -130,6 +130,8 @@ public class UIManager : MonoBehaviour {
         buildingHireButton.onClick.RemoveAllListeners();
         buildingHireButton.interactable = true;
         buildingFireButton.interactable = true;
+        if (b.GetWorkerList().Count >= b.GetMaxWorkers())
+            buildingHireButton.interactable = false;
         if (bName.Equals("Tavern")) {
             buildingHireButton.onClick.AddListener(() => Village.instance.AssignTreasureJob());
             tavOpen = true;

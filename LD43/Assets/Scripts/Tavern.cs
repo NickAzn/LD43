@@ -51,6 +51,7 @@ public class Tavern : MonoBehaviour,  Building {
 	public void Upgrade() {
         maxWorkers += workerCapIncreasePerRank;
         rank++;
+        GetComponent<SpriteRenderer>().sprite = tavernSprites[rank - 1];
     }
 
     public bool HireWorker(Person p) {

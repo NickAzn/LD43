@@ -25,11 +25,17 @@ public class House : MonoBehaviour, Building {
 	}
 
     public void Sex() {
-        int pairs = residents.Count / 2;
+        int totalFertil = 0;
+        foreach (Person p in residents) {
+            totalFertil += p.GetFertilSkill();
+        }
 
-        for (int i = 0; i < pairs; i++) {
-            if (Random.Range(0,5) == 0) {
-                residents[i].pregnant = true;
+        int maxNew = residents.Count / 2;
+
+        for (int i = 0; i < totalFertil; i++) {
+            if (Random.Range(0,5) == 0 && maxNew > 0) {
+                Village.instance.NewVillager();
+                maxNew--;
             }
         }
     }
@@ -37,6 +43,7 @@ public class House : MonoBehaviour, Building {
     public void Upgrade() {
         maxPeople += personCapIncreasePerRank;
         rank++;
+        GetComponent<SpriteRenderer>().sprite = houseSprites[rank - 1];
     }
 
     public bool HireWorker(Person p) {

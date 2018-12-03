@@ -39,6 +39,7 @@ public class Farm : MonoBehaviour, Building {
     public void Upgrade() {
         rank++;
         maxWorkers += workerCapIncreasePerRank;
+        GetComponent<SpriteRenderer>().sprite = farmSprites[rank - 1];
     }
 
     public bool HireWorker(Person p) {
