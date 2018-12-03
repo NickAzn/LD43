@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour {
     public TextMeshProUGUI dayTimeText;
     public TextMeshProUGUI personCountText;
     public TextMeshProUGUI sacBalanceText;
+    public Animator sacBackgroundAnim;
     public GameObject nightUI;
     public RectTransform allPeopleListUI;
     public GameObject endGameUI;
@@ -25,6 +26,8 @@ public class UIManager : MonoBehaviour {
     public Button buildingFireButton;
     public TextMeshProUGUI buildingNameText;
     public TextMeshProUGUI buildingCountText;
+
+    public GameObject sacrificeBoiPrefab;
 
     public bool tavOpen = false;
     public bool houseOpen = false;
@@ -93,6 +96,8 @@ public class UIManager : MonoBehaviour {
     }
 
     public void ShowNightUI() {
+        sacBackgroundAnim.Play("FadeIn");
+        SoundManager.instance.PlayNightMusic();
         ShowAllPeopleUI();
         HideBuildingUI();
         blockingUI = true;
@@ -100,8 +105,15 @@ public class UIManager : MonoBehaviour {
     }
 
     public void HideNightUI() {
+        sacBackgroundAnim.Play("FadeOut");
+        SoundManager.instance.PlayMusic();
         blockingUI = false;
         nightUI.SetActive(false);
+    }
+
+    public void ShowSacAnimation(Sprite sacUnit) {
+        GameObject sacBoi = Instantiate(sacrificeBoiPrefab);
+        sacBoi.GetComponent<SpriteRenderer>().sprite = sacUnit;
     }
 
     public void ShowGameOverUI() {

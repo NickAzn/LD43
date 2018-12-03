@@ -124,6 +124,14 @@ public class Village : MonoBehaviour {
     //Sacrifices person
     public void Sacrifice() {
         if (selectedPerson != null) {
+            Sprite dieBoi = house.GetWorkerSprite();
+            if (selectedPerson.job == 1)
+                dieBoi = farm.GetWorkerSprite();
+            else if (selectedPerson.job == 2)
+                dieBoi = construction.GetWorkerSprite();
+            else if (selectedPerson.job == 3)
+                dieBoi = tavern.GetWorkerSprite();
+            UIManager.instance.ShowSacAnimation(dieBoi);
             sacBalance--;
             UIManager.instance.UpdateSacBalanceText(sacBalance);
             Kill(selectedPerson);
