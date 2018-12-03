@@ -90,10 +90,10 @@ public class Village : MonoBehaviour {
             StartNight();
     }
 
+    //displays nightUI
     void StartNight() {
         isNight = true;
         UIManager.instance.ShowNightUI();
-        //Display sacrifice UI
     }
 
     public void EndNight() {
@@ -116,10 +116,12 @@ public class Village : MonoBehaviour {
     }
 
     //Sacrifices person
-    void Sacrifice(Person p) {
-        sacBalance--;
-        UIManager.instance.UpdateSacBalanceText(sacBalance);
-        Kill(p);
+    public void Sacrifice() {
+        if (selectedPerson != null) {
+            sacBalance--;
+            UIManager.instance.UpdateSacBalanceText(sacBalance);
+            Kill(selectedPerson);
+        }
     }
 
     void Kill(Person p) {
