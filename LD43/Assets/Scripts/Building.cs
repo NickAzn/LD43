@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface Building {
+public interface IBuilding {
 
     bool HireWorker(Person p);
 

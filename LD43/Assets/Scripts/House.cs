@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class House : MonoBehaviour, Building {
+public class House : MonoBehaviour, IBuilding {
 
     public int startPersonCap;
     public int personCapIncreasePerRank;

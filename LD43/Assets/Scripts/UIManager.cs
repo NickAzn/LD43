@@ -122,7 +122,7 @@ public class UIManager : MonoBehaviour {
         endGameUI.SetActive(true);
     }
 
-    public void ShowBuilidingUI(Building b) {
+    public void ShowBuilidingUI(IBuilding b) {
         HideBuildingUI();
         DisplayAllPeople(b.GetWorkerList(), buildingWorkerList);
         buildingCountText.text = b.GetWorkerList().Count.ToString() + "/" + b.GetMaxWorkers().ToString();
@@ -162,7 +162,7 @@ public class UIManager : MonoBehaviour {
         buildingUI.SetActive(false);
     }
 
-    public void ToggleBuildingUI(Building b) {
+    public void ToggleBuildingUI(IBuilding b) {
         if (b.GetName().Equals("Housing") && houseOpen) {
             HideBuildingUI();
         } else if (b.GetName().Equals("Farm") && farmOpen) {

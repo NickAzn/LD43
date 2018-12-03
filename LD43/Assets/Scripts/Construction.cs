@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Construction : MonoBehaviour, Building {
+public class Construction : MonoBehaviour, IBuilding {
 
     // Game stats given in editor
     public int startWorkerCap;
@@ -30,7 +30,7 @@ public class Construction : MonoBehaviour, Building {
         //rank up building
         int checks = GetBuildingPower();
 
-        Building[] builds = new Building[] { Village.instance.house, Village.instance.farm, Village.instance.construction, Village.instance.tavern };
+        IBuilding[] builds = new IBuilding[] { Village.instance.house, Village.instance.farm, Village.instance.construction, Village.instance.tavern };
 
         for (int i = 0; i < checks; i++) {
             if (Random.Range(0,4) == 0) {

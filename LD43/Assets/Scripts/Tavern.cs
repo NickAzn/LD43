@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tavern : MonoBehaviour,  Building {
+public class Tavern : MonoBehaviour,  IBuilding {
 
     // Game stats given in editor
     public int startWorkerCap;

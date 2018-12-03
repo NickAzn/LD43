@@ -37,6 +37,7 @@ public class UIPerson : MonoBehaviour {
         v.SelectPerson(person);
         v.GetPersonHighlighter().transform.SetParent(transform);
         v.GetPersonHighlighter().transform.localPosition = new Vector3(0, 0, 0);
+        v.GetPersonHighlighter().transform.localScale = new Vector3(1, 1, 1);
     }
 
     public void PlayClickSound() {

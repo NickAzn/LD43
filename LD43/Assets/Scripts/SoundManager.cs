@@ -12,6 +12,7 @@ public class SoundManager : MonoBehaviour {
 
     // Use this for initialization
     void Awake() {
+        
         //Singleton that persists through scenes
         if (instance == null) {
             instance = this;
@@ -19,6 +20,14 @@ public class SoundManager : MonoBehaviour {
         } else {
             Destroy(gameObject);
         }
+    }
+
+    private void Start() {
+        music.Play();
+        nightMusic.volume = 0;
+        nightMusic.Play();
+        music.loop = true;
+        nightMusic.loop = true;
     }
 
     public void PlaySfx(AudioClip clip) {

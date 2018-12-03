@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Farm : MonoBehaviour, Building {
+public class Farm : MonoBehaviour, IBuilding {
 
     // Game stats given in editor
     public int startWorkerCap;
