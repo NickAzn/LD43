@@ -18,6 +18,7 @@ public class Farm : MonoBehaviour, Building {
     public AudioClip hoverSound;
     public AudioClip clickDownSound;
     public AudioClip clickUpSound;
+    public ParticleSystem upgradeParticle;
 
     private void Start() {
         maxWorkers = startWorkerCap;
@@ -37,9 +38,12 @@ public class Farm : MonoBehaviour, Building {
 
     // upgrades farm
     public void Upgrade() {
+        GetComponent<Animator>().Play("Upgrade");
+        upgradeParticle.Emit(30);
         rank++;
         maxWorkers += workerCapIncreasePerRank;
-        GetComponent<SpriteRenderer>().sprite = farmSprites[rank - 1];
+        if (rank <= 3)
+            GetComponent<SpriteRenderer>().sprite = farmSprites[rank - 1];
     }
 
     public bool HireWorker(Person p) {
@@ -61,21 +65,20 @@ public class Farm : MonoBehaviour, Building {
         if (UIManager.instance.blockingUI)
             return;
 
+        GetComponent<Animator>().Play("Click");
         SoundManager.instance.PlaySfx(clickDownSound);
-        transform.localScale = new Vector2(1.1f, 1.1f);
     }
     private void OnMouseEnter() {
         if (UIManager.instance.blockingUI)
             return;
 
+        GetComponent<Animator>().Play("Hover");
         SoundManager.instance.PlaySfx(hoverSound);
-        transform.localScale = new Vector2(1.05f, 1.05f);
     }
     private void OnMouseExit() {
         if (UIManager.instance.blockingUI)
             return;
-
-        transform.localScale = new Vector2(1f, 1f);
+        GetComponent<Animator>().Play("Idle");
     }
 
     //Give visual feedback and perform an action when clicked
@@ -83,8 +86,8 @@ public class Farm : MonoBehaviour, Building {
         if (UIManager.instance.blockingUI)
             return;
 
+        GetComponent<Animator>().Play("Hover");
         SoundManager.instance.PlaySfx(clickUpSound);
-        transform.localScale = new Vector2(1.05f, 1.05f);
         UIManager.instance.ToggleBuildingUI(this);
     }
 
@@ -102,5 +105,12 @@ public class Farm : MonoBehaviour, Building {
 
     public string GetName() {
         return "Farm";
+    }
+
+    public int GetBuildingPower() {
+        int power = 0;
+        foreach (Person p in workers)
+            power += p.GetFarmSkill();
+        return power;
     }
 }

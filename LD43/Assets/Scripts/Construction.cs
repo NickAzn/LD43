@@ -17,6 +17,8 @@ public class Construction : MonoBehaviour, Building {
     public AudioClip hoverSound;
     public AudioClip clickDownSound;
     public AudioClip clickUpSound;
+    public ParticleSystem upgradeParticle;
+    public AudioClip buildSound;
 
     // Use this for initialization
     void Start() {
@@ -26,12 +28,25 @@ public class Construction : MonoBehaviour, Building {
 
     public void Build() {
         //rank up building
+        int checks = GetBuildingPower();
+
+        Building[] builds = new Building[] { Village.instance.house, Village.instance.farm, Village.instance.construction, Village.instance.tavern };
+
+        for (int i = 0; i < checks; i++) {
+            if (Random.Range(0,4) == 0) {
+                SoundManager.instance.PlaySfx(buildSound);
+                builds[Random.Range(0, builds.Length)].Upgrade();
+            }
+        }
     }
 
     public void Upgrade() {
+        GetComponent<Animator>().Play("Upgrade");
+        upgradeParticle.Emit(30);
         maxWorkers += workerCapIncreasePerRank;
         rank++;
-        GetComponent<SpriteRenderer>().sprite = constructionSprites[rank - 1];
+        if (rank <= 3)
+            GetComponent<SpriteRenderer>().sprite = constructionSprites[rank - 1];
     }
 
     public bool HireWorker(Person p) {
@@ -53,21 +68,20 @@ public class Construction : MonoBehaviour, Building {
         if (UIManager.instance.blockingUI)
             return;
 
+        GetComponent<Animator>().Play("Click");
         SoundManager.instance.PlaySfx(clickDownSound);
-        transform.localScale = new Vector2(1.1f, 1.1f);
     }
     private void OnMouseEnter() {
         if (UIManager.instance.blockingUI)
             return;
 
+        GetComponent<Animator>().Play("Hover");
         SoundManager.instance.PlaySfx(hoverSound);
-        transform.localScale = new Vector2(1.05f, 1.05f);
     }
     private void OnMouseExit() {
         if (UIManager.instance.blockingUI)
             return;
-
-        transform.localScale = new Vector2(1f, 1f);
+        GetComponent<Animator>().Play("Idle");
     }
 
     //Give visual feedback and perform an action when clicked
@@ -75,8 +89,8 @@ public class Construction : MonoBehaviour, Building {
         if (UIManager.instance.blockingUI)
             return;
 
+        GetComponent<Animator>().Play("Hover");
         SoundManager.instance.PlaySfx(clickUpSound);
-        transform.localScale = new Vector2(1.05f, 1.05f);
         UIManager.instance.ToggleBuildingUI(this);
     }
 
@@ -94,5 +108,12 @@ public class Construction : MonoBehaviour, Building {
 
     public string GetName() {
         return "Construction";
+    }
+
+    public int GetBuildingPower() {
+        int power = 0;
+        foreach (Person p in workers)
+            power += p.GetBuildSkill();
+        return power;
     }
 }

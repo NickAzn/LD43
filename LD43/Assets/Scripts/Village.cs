@@ -118,6 +118,7 @@ public class Village : MonoBehaviour {
             curDay++;
             sacBalance = sacPerDay * curDay;
             house.Sex();
+            construction.Build();
             UIManager.instance.UpdateSacBalanceText(sacBalance);
             UIManager.instance.HideNightUI();
         }

@@ -17,4 +17,6 @@ public interface Building {
     int GetMaxWorkers();
 
     string GetName();
+
+    int GetBuildingPower();
 }

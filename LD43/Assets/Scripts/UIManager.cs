@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour {
     public Button buildingFireButton;
     public TextMeshProUGUI buildingNameText;
     public TextMeshProUGUI buildingCountText;
+    public TextMeshProUGUI workerPowerText;
 
     public GameObject sacrificeBoiPrefab;
 
@@ -146,6 +147,7 @@ public class UIManager : MonoBehaviour {
             buildingFireButton.interactable = false;
             houseOpen = true;
         }
+        workerPowerText.text = b.GetBuildingPower().ToString();
         buildingWorkerImage.sprite = b.GetWorkerSprite();
         buildingUI.SetActive(true);
     }

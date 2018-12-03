@@ -22,6 +22,7 @@ public class Tavern : MonoBehaviour,  Building {
     public AudioClip hoverSound;
     public AudioClip clickDownSound;
     public AudioClip clickUpSound;
+    public ParticleSystem upgradeParticle;
 
     // Use this for initialization
     void Start () {
@@ -49,9 +50,12 @@ public class Tavern : MonoBehaviour,  Building {
     }
 
 	public void Upgrade() {
+        GetComponent<Animator>().Play("Upgrade");
+        upgradeParticle.Emit(30);
         maxWorkers += workerCapIncreasePerRank;
         rank++;
-        GetComponent<SpriteRenderer>().sprite = tavernSprites[rank - 1];
+        if (rank <= 3)
+            GetComponent<SpriteRenderer>().sprite = tavernSprites[rank - 1];
     }
 
     public bool HireWorker(Person p) {
@@ -73,21 +77,20 @@ public class Tavern : MonoBehaviour,  Building {
         if (UIManager.instance.blockingUI)
             return;
 
+        GetComponent<Animator>().Play("Click");
         SoundManager.instance.PlaySfx(clickDownSound);
-        transform.localScale = new Vector2(1.1f, 1.1f);
     }
     private void OnMouseEnter() {
         if (UIManager.instance.blockingUI)
             return;
 
+        GetComponent<Animator>().Play("Hover");
         SoundManager.instance.PlaySfx(hoverSound);
-        transform.localScale = new Vector2(1.05f, 1.05f);
     }
     private void OnMouseExit() {
         if (UIManager.instance.blockingUI)
             return;
-
-        transform.localScale = new Vector2(1f, 1f);
+        GetComponent<Animator>().Play("Idle");
     }
 
     //Give visual feedback and perform an action when clicked
@@ -95,8 +98,8 @@ public class Tavern : MonoBehaviour,  Building {
         if (UIManager.instance.blockingUI)
             return;
 
+        GetComponent<Animator>().Play("Hover");
         SoundManager.instance.PlaySfx(clickUpSound);
-        transform.localScale = new Vector2(1.05f, 1.05f);
         UIManager.instance.ToggleBuildingUI(this);
     }
 
@@ -114,5 +117,12 @@ public class Tavern : MonoBehaviour,  Building {
 
     public string GetName() {
         return "Tavern";
+    }
+
+    public int GetBuildingPower() {
+        int power = 0;
+        foreach (Person p in workers)
+            power += p.GetHuntSkill();
+        return power;
     }
 }
