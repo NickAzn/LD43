@@ -11,6 +11,8 @@ public class UIPerson : MonoBehaviour {
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI skillsText;
 
+    public AudioClip clickSound;
+
 	public void UpdateDisplay() {
         if (person != null) {
             nameText.text = person.personName;
@@ -35,5 +37,9 @@ public class UIPerson : MonoBehaviour {
         v.SelectPerson(person);
         v.GetPersonHighlighter().transform.SetParent(transform);
         v.GetPersonHighlighter().transform.localPosition = new Vector3(0, 0, 0);
+    }
+
+    public void PlayClickSound() {
+        SoundManager.instance.PlaySfx(clickSound);
     }
 }
