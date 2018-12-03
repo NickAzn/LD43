@@ -16,7 +16,6 @@ public class UIManager : MonoBehaviour {
     public TextMeshProUGUI sacBalanceText;
     public ScrollRect buildingWorkerList;
     public GameObject nightUI;
-    public GameObject sacrificeUI;
     public RectTransform allPeopleListUI;
     public GameObject endGameUI;
     public GameObject tavernUI;
@@ -89,16 +88,6 @@ public class UIManager : MonoBehaviour {
     public void HideNightUI() {
         HideAllPeopleUI();
         nightUI.SetActive(false);
-    }
-
-    public void ShowSacrificeUI() {
-        ShowAllPeopleUI();
-        sacrificeUI.SetActive(true);
-    }
-
-    public void HideSacrificeUI() {
-        HideAllPeopleUI();
-        sacrificeUI.SetActive(false);
     }
 
     public void ShowGameOverUI() {

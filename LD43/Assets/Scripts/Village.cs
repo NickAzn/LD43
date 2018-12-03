@@ -90,11 +90,10 @@ public class Village : MonoBehaviour {
             StartNight();
     }
 
+    //displays nightUI
     void StartNight() {
         isNight = true;
         UIManager.instance.ShowNightUI();
-        //Display sacrifice UI
-        UIManager.instance.ShowSacrificeUI();
     }
 
     public void EndNight() {
