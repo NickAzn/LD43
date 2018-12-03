@@ -14,10 +14,19 @@ public class UIPerson : MonoBehaviour {
 	public void UpdateDisplay() {
         if (person != null) {
             nameText.text = person.personName;
-            skillsText.text = "Fertility: " + person.GetFertilSkill()
+            string jobName = "N/A";
+            if (person.job == 1) {
+                jobName = "Farmer";
+            } else if (person.job == 2) {
+                jobName = "Builder";
+            } else if (person.job == 3) {
+                jobName = "Explorer";
+            }
+            skillsText.text = "Job: " + jobName
+                               + "\nFertility: " + person.GetFertilSkill()
                                + "\nFarming: " + person.GetFarmSkill()
                                + "\nBuilding: " + person.GetBuildSkill()
-                               + "\nHunting: " + person.GetHuntSkill();
+                               + "\nExploring: " + person.GetHuntSkill();
         }
     }
 

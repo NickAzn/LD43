@@ -26,6 +26,13 @@ public class UIManager : MonoBehaviour {
     public TextMeshProUGUI buildingNameText;
     public TextMeshProUGUI buildingCountText;
 
+    public bool tavOpen = false;
+    public bool houseOpen = false;
+    public bool farmOpen = false;
+    public bool constOpen = false;
+
+    public bool blockingUI = false;
+
     private void Awake() {
         //Singleton
         if (instance == null) {
@@ -87,39 +94,70 @@ public class UIManager : MonoBehaviour {
 
     public void ShowNightUI() {
         ShowAllPeopleUI();
+        HideBuildingUI();
+        blockingUI = true;
         nightUI.SetActive(true);
     }
 
     public void HideNightUI() {
-        HideAllPeopleUI();
+        blockingUI = false;
         nightUI.SetActive(false);
     }
 
     public void ShowGameOverUI() {
+        blockingUI = true;
         endGameUI.SetActive(true);
     }
 
     public void ShowBuilidingUI(Building b) {
+        HideBuildingUI();
         DisplayAllPeople(b.GetWorkerList(), buildingWorkerList);
         buildingCountText.text = b.GetWorkerList().Count.ToString() + "/" + b.GetMaxWorkers().ToString();
         string bName = b.GetName();
         buildingNameText.text = bName;
         buildingHireButton.onClick.RemoveAllListeners();
+        buildingHireButton.interactable = true;
+        buildingFireButton.interactable = true;
         if (bName.Equals("Tavern")) {
             buildingHireButton.onClick.AddListener(() => Village.instance.AssignTreasureJob());
+            tavOpen = true;
         } else if (bName.Equals("Farm")) {
             buildingHireButton.onClick.AddListener(() => Village.instance.AssignFarmJob());
+            farmOpen = true;
         } else if (bName.Equals("Construction")) {
             buildingHireButton.onClick.AddListener(() => Village.instance.AssignBuilderJob());
+            constOpen = true;
+        } else if (bName.Equals("Housing")) {
+            buildingHireButton.interactable = false;
+            buildingFireButton.interactable = false;
+            houseOpen = true;
         }
         buildingWorkerImage.sprite = b.GetWorkerSprite();
         buildingUI.SetActive(true);
     }
 
     public void HideBuildingUI() {
+        tavOpen = false;
+        farmOpen = false;
+        constOpen = false;
+        houseOpen = false;
         buildingHireButton.onClick.RemoveAllListeners();
         buildingFireButton.onClick.RemoveAllListeners();
         buildingUI.SetActive(false);
+    }
+
+    public void ToggleBuildingUI(Building b) {
+        if (b.GetName().Equals("Housing") && houseOpen) {
+            HideBuildingUI();
+        } else if (b.GetName().Equals("Farm") && farmOpen) {
+            HideBuildingUI();
+        } else if (b.GetName().Equals("Construction") && constOpen) {
+            HideBuildingUI();
+        } else if (b.GetName().Equals("Tavern") && tavOpen) {
+            HideBuildingUI();
+        } else {
+            ShowBuilidingUI(b);
+        }
     }
 
 }

@@ -53,17 +53,21 @@ public class Village : MonoBehaviour {
         UIManager.instance.UpdateFoodText(food);
         sacBalance = 1;
         UIManager.instance.UpdateSacBalanceText(sacBalance);
+	}
 
+    private void Start() {
         for (int i = 0; i < startPersonCount; i++) {
             Person p = new Person();
             peopleList.Add(p);
-            house.AddToHouse(p);
+            house.HireWorker(p);
+            p.homeless = false;
         }
         UIManager.instance.UpdatePersonCountText(peopleList.Count);
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        UIManager.instance.ShowAllPeopleUI();
+    }
+
+    // Update is called once per frame
+    void Update () {
         if (!isNight) {
             curDayTime += Time.deltaTime;
             if (curDayTime >= dayLength)
@@ -106,6 +110,7 @@ public class Village : MonoBehaviour {
             curDayTime = 0;
             curDay++;
             sacBalance = sacPerDay * curDay;
+            UIManager.instance.UpdateSacBalanceText(sacBalance);
             UIManager.instance.HideNightUI();
         }
     }
@@ -121,7 +126,6 @@ public class Village : MonoBehaviour {
         if (selectedPerson != null) {
             sacBalance--;
             UIManager.instance.UpdateSacBalanceText(sacBalance);
-            UIManager.instance.ShowAllPeopleUI();
             Kill(selectedPerson);
         }
     }
@@ -131,11 +135,13 @@ public class Village : MonoBehaviour {
         if (p.job != 0)
             RemovePersonJob(p);
         if (p.homeless == false)
-            house.RemovePerson(p);
+            house.RemoveWorker(p);
         availNames.Add(p.personName);
         if (selectedPerson == p)
             DeselectPerson();
         p = null;
+        UIManager.instance.UpdatePersonCountText(peopleList.Count);
+        UIManager.instance.ShowAllPeopleUI();
     }
 
     public void AssignFarmJob() {
@@ -144,6 +150,8 @@ public class Village : MonoBehaviour {
                 RemovePersonJob();
                 selectedPerson.job = 1;
                 DeselectPerson();
+                UIManager.instance.ShowBuilidingUI(farm);
+                UIManager.instance.ShowAllPeopleUI();
             }
         }
     }
@@ -154,6 +162,8 @@ public class Village : MonoBehaviour {
                 RemovePersonJob();
                 selectedPerson.job = 2;
                 DeselectPerson();
+                UIManager.instance.ShowBuilidingUI(construction);
+                UIManager.instance.ShowAllPeopleUI();
             }
         }
     }
@@ -164,6 +174,8 @@ public class Village : MonoBehaviour {
                 RemovePersonJob();
                 selectedPerson.job = 3;
                 DeselectPerson();
+                UIManager.instance.ShowBuilidingUI(tavern);
+                UIManager.instance.ShowAllPeopleUI();
             }
         }
     }
@@ -184,11 +196,12 @@ public class Village : MonoBehaviour {
             construction.RemoveWorker(p);
         else if (p.job == 3)
             tavern.RemoveWorker(p);
+        UIManager.instance.ShowAllPeopleUI();
     }
 
     public void AssignHome() {
         if (selectedPerson != null) {
-            if (house.AddToHouse(selectedPerson)) {
+            if (house.HireWorker(selectedPerson)) {
                 selectedPerson.homeless = false;
                 DeselectPerson();
             }
