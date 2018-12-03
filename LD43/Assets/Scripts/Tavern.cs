@@ -84,7 +84,7 @@ public class Tavern : MonoBehaviour,  Building {
     private void OnMouseUpAsButton() {
         SoundManager.instance.PlaySfx(clickUpSound);
         transform.localScale = new Vector2(1.05f, 1.05f);
-        UIManager.instance.ShowTavernUI(this);
+        UIManager.instance.ShowBuilidingUI(this);
     }
 
     public Sprite GetWorkerSprite() {

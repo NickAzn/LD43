@@ -99,15 +99,12 @@ public class UIManager : MonoBehaviour {
         endGameUI.SetActive(true);
     }
 
-    public void ShowTavernUI(Tavern t) {
-        ShowBuilidingUI(t);
-    }
-
     public void ShowBuilidingUI(Building b) {
         DisplayAllPeople(b.GetWorkerList(), buildingWorkerList);
         buildingCountText.text = b.GetWorkerList().Count.ToString() + "/" + b.GetMaxWorkers().ToString();
         string bName = b.GetName();
         buildingNameText.text = bName;
+        buildingHireButton.onClick.RemoveAllListeners();
         if (bName.Equals("Tavern")) {
             buildingHireButton.onClick.AddListener(() => Village.instance.AssignTreasureJob());
         } else if (bName.Equals("Farm")) {

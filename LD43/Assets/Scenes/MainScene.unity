@@ -1408,6 +1408,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startWorkerCap: 2
   workerCapIncreasePerRank: 3
+  workerSprite: {fileID: 21300000, guid: 7f13e142d5f2e244286bb49be93c1933, type: 3}
   constructionSprites:
   - {fileID: 21300000, guid: 09f294c8014e60b48944fd8500640f3d, type: 3}
   - {fileID: 21300000, guid: 62ac7e09e1f5df945a26af9d81fc1e66, type: 3}
@@ -4958,6 +4959,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startWorkerCap: 2
   workerCapIncreasePerRank: 3
+  workerSprite: {fileID: 21300000, guid: d92927a667e21a04d8614bbe551f646b, type: 3}
   farmSprites:
   - {fileID: 21300000, guid: 360b98b55ea87bf48a7dfe80bea8de5b, type: 3}
   - {fileID: 21300000, guid: 2dc4e167402d9214caf819864bb15a95, type: 3}

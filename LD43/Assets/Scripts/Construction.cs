@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Construction : MonoBehaviour {
+public class Construction : MonoBehaviour, Building {
 
     // Game stats given in editor
     public int startWorkerCap;
@@ -12,6 +12,7 @@ public class Construction : MonoBehaviour {
     int maxWorkers;
     int rank;
 
+    public Sprite workerSprite;
     public Sprite[] constructionSprites;
     public AudioClip hoverSound;
     public AudioClip clickDownSound;
@@ -63,6 +64,22 @@ public class Construction : MonoBehaviour {
     private void OnMouseUpAsButton() {
         SoundManager.instance.PlaySfx(clickUpSound);
         transform.localScale = new Vector2(1.05f, 1.05f);
-        Village.instance.AssignBuilderJob();
+        UIManager.instance.ShowBuilidingUI(this);
+    }
+
+    public Sprite GetWorkerSprite() {
+        return workerSprite;
+    }
+
+    public List<Person> GetWorkerList() {
+        return workers;
+    }
+
+    public int GetMaxWorkers() {
+        return maxWorkers;
+    }
+
+    public string GetName() {
+        return "Construction";
     }
 }
