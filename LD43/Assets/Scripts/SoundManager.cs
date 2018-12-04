@@ -42,6 +42,19 @@ public class SoundManager : MonoBehaviour {
         StartCoroutine(TransitionToNightMusic(5f));
     }
 
+    public void PlaySfx(AudioClip clip, float delay) {
+        StartCoroutine(PlaySfxDelay(clip, delay));
+    }
+
+    IEnumerator PlaySfxDelay(AudioClip clip, float time) {
+        float curTime = 0;
+        while (curTime < time) {
+            curTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        PlaySfx(clip);
+    }
+
     IEnumerator TransitionToNightMusic(float time) {
         nightMusic.volume = 0;
         float curTime = 0;

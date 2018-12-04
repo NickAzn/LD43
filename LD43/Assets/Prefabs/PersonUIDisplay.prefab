@@ -192,7 +192,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: {fileID: 114821402241472650}
   skillsText: {fileID: 114670009034664622}
-  clickSound: {fileID: 8300000, guid: dcd5922807881c745bcc09b02cd1d74e, type: 3}
+  clickSound: {fileID: 8300000, guid: c90993ee267113d4c81d1365977c792d, type: 3}
 --- !u!114 &114670009034664622
 MonoBehaviour:
   m_ObjectHideFlags: 1

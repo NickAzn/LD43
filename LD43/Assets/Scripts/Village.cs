@@ -26,6 +26,7 @@ public class Village : MonoBehaviour {
     public Construction construction;
     public Tavern tavern;
     public AudioClip endDaySound;
+    public AudioClip sacSound;
 
     List<Item> itemList = new List<Item>();
 
@@ -142,6 +143,7 @@ public class Village : MonoBehaviour {
     //Sacrifices person
     public void Sacrifice() {
         if (selectedPerson != null) {
+            SoundManager.instance.PlaySfx(sacSound, 2f);
             Sprite dieBoi = house.GetWorkerSprite();
             if (selectedPerson.job == 1)
                 dieBoi = farm.GetWorkerSprite();
