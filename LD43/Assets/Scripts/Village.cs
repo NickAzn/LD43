@@ -15,6 +15,8 @@ public class Village : MonoBehaviour {
     public int sacPerDay;
     public int startPersonCount;
 
+    int days = 1;
+
     List<Person> peopleList = new List<Person>();
     float food;
 
@@ -54,7 +56,8 @@ public class Village : MonoBehaviour {
         UIManager.instance.UpdateFoodText(food);
         sacBalance = 1;
         UIManager.instance.UpdateSacBalanceText(sacBalance);
-	}
+        UIManager.instance.UpdateDayText(days);
+    }
 
     private void Start() {
         for (int i = 0; i < startPersonCount; i++) {
@@ -129,6 +132,8 @@ public class Village : MonoBehaviour {
             house.Sex();
             construction.Build();
             tavern.Work();
+            days++;
+            UIManager.instance.UpdateDayText(days);
             UIManager.instance.UpdateSacBalanceText(sacBalance);
             UIManager.instance.HideNightUI();
         }

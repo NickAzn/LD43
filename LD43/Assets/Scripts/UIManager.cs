@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour {
     public TextMeshProUGUI dayTimeText;
     public TextMeshProUGUI personCountText;
     public TextMeshProUGUI sacBalanceText;
+    public TextMeshProUGUI dayText;
     public Animator sacBackgroundAnim;
     public GameObject nightUI;
     public RectTransform allPeopleListUI;
@@ -60,6 +61,10 @@ public class UIManager : MonoBehaviour {
 
     public void UpdateSacBalanceText(int amt) {
         sacBalanceText.text = "Required Sacrifices: " + amt.ToString();
+    }
+
+    public void UpdateDayText(int amt) {
+        dayText.text = "Day: " + amt.ToString();
     }
 
     //Displays list of people into content rect transform sets content to proper size for number of people
