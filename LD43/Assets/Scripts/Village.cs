@@ -152,6 +152,8 @@ public class Village : MonoBehaviour {
             UIManager.instance.ShowSacAnimation(dieBoi);
             IncrementSacBalance(-1);
             Kill(selectedPerson);
+            if (peopleList.Count == 0)
+                EndGame();
         }
     }
 
